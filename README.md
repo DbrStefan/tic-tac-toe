@@ -29,7 +29,7 @@ A web-based Tic-Tac-Toe game where two players can play simultaneously on the sa
 - **Visual Feedback**: Displays "You Win!" or "You Lost!" messages with appropriate styling.
 
 ## Demo
-[Live Demo on GitHub Pages](https://github.com/DbrStefan/tic-tac-toe)
+[Live Demo on GitHub Pages](https://dbrstefan.github.io/tic-tac-toe/)
 
 ## Getting Started
 Follow these instructions to get a copy of the project up and running on your local machine.
