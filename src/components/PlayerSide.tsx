@@ -20,13 +20,13 @@ const PlayerSide: React.FC<PlayerSideProps> = ({ currentPlayer }) => {
   const winner = useSelector((state: RootState) => state.game.winner);
 
   const getGameOverStatus = (): GameStatus => {
-    const statusMap: Record<string, GameStatus> = {
-      Draw: { message: "It's a Draw!", className: 'draw' },
-      [currentPlayer]: { message: 'You Win!', className: 'win' },
-      default: { message: 'You Lost!', className: 'lost' }
-    };
-
-    return statusMap[winner] || statusMap.default;
+    if (winner === 'Draw') {
+      return { message: "It's a Draw!", className: 'draw' };
+    } else if (winner === currentPlayer) {
+      return { message: 'You Win!', className: 'win' };
+    } else {
+      return { message: 'You Lost!', className: 'lost' };
+    }
   };
 
   const getInGameStatus = (): GameStatus => {
@@ -34,21 +34,17 @@ const PlayerSide: React.FC<PlayerSideProps> = ({ currentPlayer }) => {
     const isPlayerTurn = (isXNext && playerSymbol === 'X') || (!isXNext && playerSymbol === 'O');
     const isBoardEmpty = board.every((cell) => cell === null);
     
-    const statusMap = {
-      empty: {
-        true: 'Game Started! Your turn:',
-        false: 'Game Started! Wait for your opponent.'
-      },
-      inProgress: {
-        true: 'Your turn:',
-        false: 'Wait for your opponent.'
-      }
-    };
-
-    const gameState = isBoardEmpty ? 'empty' : 'inProgress';
-    const message = statusMap[gameState][isPlayerTurn];
-
-    return { message, className: '' };
+    if (isBoardEmpty) {
+      return {
+        message: isPlayerTurn ? 'Game Started! Your turn:' : 'Game Started! Wait for your opponent.',
+        className: ''
+      };
+    } else {
+      return {
+        message: isPlayerTurn ? 'Your turn:' : 'Wait for your opponent.',
+        className: ''
+      };
+    }
   };
 
   const { message, className } = isGameOver ? getGameOverStatus() : getInGameStatus();
